@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: balbains2/auth
+          image: us.gcr.io/ticketing-dev-282207/auth
 ---
 apiVersion: v1
 kind: Service
