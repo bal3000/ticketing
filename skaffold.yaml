@@ -10,6 +10,7 @@ build:
   googleCloudBuild:
     projectId: ticketing-dev-282207
   artifacts:
+    # - image: balbains2/auth
     - image: us.gcr.io/ticketing-dev-282207/auth
       context: auth
       docker:
