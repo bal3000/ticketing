@@ -49,7 +49,7 @@ router.post(
       jwt: userJwt,
     };
 
-    res.send(200).send(existingUser);
+    res.send(existingUser);
   }
 );
 
