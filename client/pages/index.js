@@ -1,16 +1,16 @@
 import React from 'react';
-import axios from 'axios';
+
+import buildClient from '../api/build-client';
 
 function LandingPage({ currentUser }) {
-  console.log(currentUser);
-  return <h1>Hello</h1>;
+  const { email } = currentUser;
+  return <h1>Hello {email}</h1>;
 }
 
-LandingPage.getInitialProps = async () => {
-  const response = await axios.get(
-    'http://auth-srv:3000/api/users/currentuser'
-  );
-  return response.data;
+LandingPage.getInitialProps = async (context) => {
+  const client = await buildClient(context);
+  const { data } = client.get('/api/users/currentuser');
+  return data;
 };
 
 export default LandingPage;
