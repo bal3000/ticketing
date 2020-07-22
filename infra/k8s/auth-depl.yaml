@@ -17,6 +17,8 @@ spec:
           # image: balbains2/auth
           image: us.gcr.io/ticketing-dev-282207/auth
           env:
+            - name: MONGO_URI
+              value: 'mongodb://auth-mongo-srv:27017/auth'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
