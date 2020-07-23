@@ -6,7 +6,7 @@ import app from '../app';
 declare global {
   namespace NodeJS {
     interface Global {
-      signup(): Promise<string[]>;
+      signin(): Promise<string[]>;
     }
   }
 }
@@ -37,16 +37,11 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-global.signup = async () => {
-  const email = 'test@test.com';
-  const password = 'password';
-
-  const response = await request(app)
-    .post('/api/users/signup')
-    .send({ email, password })
-    .expect(201);
-
-  const cookie = response.get('Set-Cookie');
-
-  return cookie;
+global.signin = async () => {
+  // Build a JWT payload
+  // Create JWT
+  // Build session Object
+  // Turn that session into JSON
+  // Take JSON and encode it to base64
+  // return a string thats the cookie
 };
