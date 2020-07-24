@@ -4,7 +4,7 @@ import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@tripb3000/common';
 
-import { createTicketRouter } from './routes/create-ticket-router';
+import { createTicketRouter } from './routes/create-ticket';
 
 const app = express();
 app.set('trust proxy', true);
