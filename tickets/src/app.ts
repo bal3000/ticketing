@@ -6,6 +6,8 @@ import { errorHandler, NotFoundError, currentUser } from '@tripb3000/common';
 
 import { createTicketRouter } from './routes/create-ticket';
 import { showTicketRouter } from './routes/show-ticket';
+import { getAllTicketsRouter } from './routes/get-all-tickets';
+import { updateTicketRouter } from './routes/update-ticket';
 
 const app = express();
 app.set('trust proxy', true);
@@ -19,7 +21,9 @@ app.use(
 app.use(currentUser);
 
 app.use(createTicketRouter);
+app.use(updateTicketRouter);
 app.use(showTicketRouter);
+app.use(getAllTicketsRouter);
 
 app.all('*', () => {
   throw new NotFoundError();

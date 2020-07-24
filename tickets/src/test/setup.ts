@@ -42,7 +42,7 @@ global.signin = () => {
   // Create JWT
   const token = jwt.sign(
     {
-      id: '23123',
+      id: new mongoose.Types.ObjectId().toHexString(),
       email: 'test@test.com',
     },
     process.env.JWT_KEY!
