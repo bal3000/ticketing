@@ -2,6 +2,8 @@ import request from 'supertest';
 import mongoose from 'mongoose';
 import app from '../../app';
 
+jest.mock('../../nats-wrapper');
+
 const validTicketObj = { title: 'test', price: 10 };
 
 it('returns a 404 if the provided id does not exist', async () => {
