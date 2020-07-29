@@ -29,6 +29,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  jest.clearAllMocks();
   const collections = await mongoose.connection.db.collections();
   collections.forEach(async (collection) => {
     await collection.deleteMany({});
