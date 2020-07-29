@@ -1,6 +1,8 @@
 import request from 'supertest';
 import app from '../../app';
 
+jest.mock('../../nats-wrapper');
+
 const title = 'test';
 const price = 10;
 
