@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { TicketDocument } from './ticket';
 
 interface OrderAttrs {
   userId: string;
