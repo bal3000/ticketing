@@ -19,6 +19,9 @@ const start = async () => {
   if (!process.env.NATS_CLIENT_ID) {
     throw new Error('NATS_CLIENT_ID must be defined');
   }
+  if (!process.env.EXPIRATION_WINDOW_MINUTES) {
+    throw new Error('EXPIRATION_WINDOW_MINUTES must be defined');
+  }
 
   try {
     await natsWrapper.connect(

@@ -17,6 +17,8 @@ spec:
           # image: balbains2/orders
           image: us.gcr.io/ticketing-dev-282207/orders
           env:
+            - name: EXPIRATION_WINDOW_MINUTES
+              value: '15'
             - name: MONGO_URI
               value: 'mongodb://orders-mongo-srv:27017/orders'
             - name: NATS_URI
