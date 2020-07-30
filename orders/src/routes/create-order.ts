@@ -7,4 +7,4 @@ router.post('/api/orders', async (req: Request, res: Response) => {
   res.send({});
 });
 
-export { router as createOrdersRouter };
+export { router as createOrderRouter };

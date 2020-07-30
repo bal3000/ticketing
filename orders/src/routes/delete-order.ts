@@ -7,4 +7,4 @@ router.delete('/api/orders/:orderId', async (req: Request, res: Response) => {
   res.send({});
 });
 
-export { router as deleteOrdersRouter };
+export { router as deleteOrderRouter };
