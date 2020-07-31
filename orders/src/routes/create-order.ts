@@ -13,9 +13,6 @@ import { Order, Ticket } from '../models';
 
 const router = express.Router();
 
-const EXPIRATION_WINDOW_SECONDS =
-  parseInt(process.env.EXPIRATION_WINDOW_MINUTES!) * 60;
-
 router.post(
   '/api/orders',
   requireAuth,
@@ -47,7 +44,10 @@ router.post(
 
     // Calculate an expiration date for the order
     const expiresAt = new Date();
-    expiresAt.setSeconds(expiresAt.getSeconds() + EXPIRATION_WINDOW_SECONDS);
+    expiresAt.setSeconds(
+      expiresAt.getSeconds() +
+        parseInt(process.env.EXPIRATION_WINDOW_MINUTES!) * 60
+    );
 
     // Build the order and save it to db
     const order = Order.build({
