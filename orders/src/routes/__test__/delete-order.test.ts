@@ -56,3 +56,5 @@ it('returns error if the order is deleted by the wrong user', async () => {
     .send()
     .expect(401);
 });
+
+it.todo('emits a order cancelled event');
