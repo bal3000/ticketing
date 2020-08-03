@@ -21,3 +21,5 @@ export * from './event-bus/events/ticket-updated-event.interface';
 export * from './event-bus/listeners/base-listener.abstract';
 export * from './event-bus/publishers/base-publisher.abstract';
 export * from './event-bus/types/order-status';
+export * from './event-bus/events/order-cancelled-event.interface';
+export * from './event-bus/events/order-created-event.interface';
