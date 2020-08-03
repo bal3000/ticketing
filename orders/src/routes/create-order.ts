@@ -10,6 +10,8 @@ import {
 } from '@tripb3000/common';
 
 import { Order, Ticket } from '../models';
+import { natsWrapper } from '../nats-wrapper';
+import { OrderCreatedPublisher } from '../events/publishers/order-created-publisher';
 
 const router = express.Router();
 
@@ -59,6 +61,13 @@ router.post(
     await order.save();
 
     // Publish an event saying that an order was created
+    await new OrderCreatedPublisher(natsWrapper.client).publish({
+      id: order.id,
+      ticket: { ...ticket, id: ticketId },
+      userId: order.userId,
+      status: order.status,
+      expiresAt: expiresAt.toISOString(),
+    });
 
     res.status(201).send(order);
   }
