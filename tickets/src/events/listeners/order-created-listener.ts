@@ -17,12 +17,21 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     data: OrderCreatedEvent['data'],
     msg: Message
   ): Promise<void> {
-    const ticket = Ticket.findById(data.ticket.id);
+    // Get the ticket
+    const ticket = await Ticket.findById(data.ticket.id);
 
+    // Throw error if null
     if (!ticket) {
       throw new NotFoundError();
     }
 
+    // Set the ticket as reserved
+    ticket.set({ orderId: data.id });
+
+    // Save ticket
+    await ticket.save();
+
+    // Ack the message
     msg.ack();
   }
 }
