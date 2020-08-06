@@ -33,8 +33,12 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     await ticket.save();
 
     await new TicketUpdatedPublisher(this.client).publish({
-      ...ticket,
       id: ticket.id,
+      title: ticket.title,
+      price: ticket.price,
+      version: ticket.version,
+      userId: ticket.userId,
+      orderId: ticket.orderId,
     });
 
     // Ack the message
