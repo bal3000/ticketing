@@ -8,6 +8,8 @@ import {
 
 import { Ticket } from '../../models/ticket';
 import { queueGroupName } from './constants';
+import { TicketUpdatedPublisher } from '../publishers/ticket-updated-publisher';
+import { natsWrapper } from '../../nats-wrapper';
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
   readonly subject = Subjects.OrderCreated;
@@ -30,6 +32,14 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
 
     // Save ticket
     await ticket.save();
+
+    await new TicketUpdatedPublisher(this.client).publish({
+      id: ticket.id,
+      title: ticket.title,
+      price: ticket.price,
+      userId: ticket.userId,
+      version: ticket.version,
+    });
 
     // Ack the message
     msg.ack();

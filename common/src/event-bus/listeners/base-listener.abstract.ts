@@ -8,7 +8,7 @@ export abstract class Listener<T extends Event> {
 
   protected ackWait = 5 * 1000;
 
-  constructor(private readonly client: Stan) {}
+  constructor(protected readonly client: Stan) {}
 
   subscriptionOptions() {
     return this.client
