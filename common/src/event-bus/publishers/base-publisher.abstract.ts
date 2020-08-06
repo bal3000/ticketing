@@ -4,7 +4,7 @@ import { Event } from '../events/event.interface';
 export abstract class Publisher<T extends Event> {
   abstract subject: T['subject'];
 
-  constructor(private readonly client: Stan) {}
+  constructor(protected readonly client: Stan) {}
 
   async publish(data: T['data']): Promise<void> {
     return new Promise((resolve, reject) => {
