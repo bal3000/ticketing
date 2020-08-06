@@ -5,6 +5,7 @@ import {
   validateRequest,
   NotFoundError,
   NotAuthorizedError,
+  BadRequestError,
 } from '@tripb3000/common';
 
 import { Ticket } from '../models/ticket';
@@ -24,8 +25,6 @@ router.put(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { title, price } = req.body;
-
     const ticket = await Ticket.findById(req.params.id);
 
     if (!ticket) {
@@ -34,6 +33,10 @@ router.put(
 
     if (ticket.userId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
+    }
+
+    if (ticket.orderId) {
+      throw new BadRequestError('Cannot edit a reserved ticket');
     }
 
     ticket.set({
