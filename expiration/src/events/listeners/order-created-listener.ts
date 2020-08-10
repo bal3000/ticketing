@@ -12,7 +12,10 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     data: OrderCreatedEvent['data'],
     msg: Message
   ): Promise<void> {
-    await expirationQueue.add({ orderId: data.id });
+    const delay = new Date(data.expiresAt).getTime() - new Date().getTime();
+    console.log(`Order ${data.id}, waiting ${delay} ms before process`);
+
+    await expirationQueue.add({ orderId: data.id }, { delay });
     // Ack the message
     msg.ack();
   }

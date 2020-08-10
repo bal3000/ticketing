@@ -23,3 +23,4 @@ export * from './event-bus/publishers/base-publisher.abstract';
 export * from './event-bus/types/order-status';
 export * from './event-bus/events/order-cancelled-event.interface';
 export * from './event-bus/events/order-created-event.interface';
+export * from './event-bus/events/expiration-complete-event.interface';
