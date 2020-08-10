@@ -40,18 +40,30 @@ const setup = async () => {
   return { listener, data, message, order };
 };
 
-it('creates and cancels a order', async () => {
+it('updates the order status to cancelled', async () => {
   const { listener, data, message } = await setup();
 
   // call the onmessage function with the data object + msg obj
   await listener.onMessage(data, message);
 
-  // write assertions to make sure a ticket was created
-  const ticket = await Ticket.findById(data.id);
+  const updatedOrder = await Order.findById(data.orderId);
 
-  expect(ticket).toBeDefined();
-  expect(ticket?.title).toEqual(data.title);
-  expect(ticket?.price).toEqual(data.price);
+  expect(updatedOrder).toBeDefined();
+  expect(updatedOrder?.status).toEqual(OrderStatus.Cancelled);
+});
+
+it('emit an OrderCancelled event', async () => {
+  const { listener, data, message, order } = await setup();
+
+  // call the onmessage function with the data object + msg obj
+  await listener.onMessage(data, message);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+
+  const eveData = JSON.parse(
+    (natsWrapper.client.publish as jest.Mock).mock.calls[0][1]
+  );
+  expect(eveData.id).toEqual(order.id);
 });
 
 it('acks the message', async () => {
