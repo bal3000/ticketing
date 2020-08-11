@@ -4,6 +4,8 @@ import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@tripb3000/common';
 
+import { createChargeRouter } from './routes/create-charge';
+
 const app = express();
 app.set('trust proxy', true);
 app.use(json());
@@ -14,6 +16,8 @@ app.use(
   })
 );
 app.use(currentUser);
+
+app.use(createChargeRouter);
 
 app.all('*', () => {
   throw new NotFoundError();
