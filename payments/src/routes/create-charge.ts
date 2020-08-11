@@ -10,6 +10,7 @@ import {
 } from '@tripb3000/common';
 
 import { Order } from '../models';
+import stripe from '../stripe';
 
 const router = express.Router();
 
@@ -35,6 +36,12 @@ router.post(
     if (order.status === OrderStatus.Cancelled) {
       throw new BadRequestError('Cannot pay for an cancelled order');
     }
+
+    await stripe.charges.create({
+      amount: order.price * 100,
+      currency: 'GBP',
+      source: token,
+    });
 
     res.status(201).send(order);
   }
