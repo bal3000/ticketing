@@ -37,13 +37,17 @@ router.post(
       throw new BadRequestError('Cannot pay for an cancelled order');
     }
 
-    await stripe.charges.create({
-      amount: order.price * 100,
-      currency: 'GBP',
-      source: token,
-    });
+    try {
+      await stripe.charges.create({
+        amount: order.price * 100,
+        currency: 'GBP',
+        source: token,
+      });
+    } catch (err) {
+      throw new Error('Payment failed');
+    }
 
-    res.status(201).send(order);
+    res.status(201).send({ success: true });
   }
 );
 

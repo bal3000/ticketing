@@ -4,6 +4,7 @@ import { OrderStatus } from '@tripb3000/common';
 
 import app from '../../app';
 import { Order } from '../../models';
+import stripe from '../../stripe';
 
 it('returns a 404 when purchasing an order that does not exist', async () => {
   await request(app)
@@ -46,4 +47,29 @@ it('returns a 400 when purchasing an order that has been cancelled', async () =>
     .set('Cookie', global.signin(userId))
     .send({ token: 'asd', orderId: order.id })
     .expect(400);
+});
+
+it('returns a 201 with valid inputs', async () => {
+  const userId = mongoose.Types.ObjectId().toHexString();
+  const price = Math.floor(Math.random() * 100000);
+  const order = Order.build({
+    id: mongoose.Types.ObjectId().toHexString(),
+    userId,
+    status: OrderStatus.Created,
+    version: 0,
+    price,
+  });
+  await order.save();
+
+  await request(app)
+    .post('/api/payments')
+    .set('Cookie', global.signin(userId))
+    .send({ token: 'tok_visa', orderId: order.id })
+    .expect(201);
+
+  const { data } = await stripe.charges.list({ limit: 50 });
+  const stripCharge = data.find((c) => c.amount === price * 100);
+
+  expect(stripCharge).toBeDefined();
+  expect(stripCharge?.currency).toEqual('gbp');
 });
