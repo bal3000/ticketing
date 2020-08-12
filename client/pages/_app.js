@@ -20,7 +20,7 @@ AppComponent.getInitialProps = async ({ ctx, Component }) => {
 
   let pageProps = {};
   if (Component.getInitialProps) {
-    pageProps = await Component.getInitialProps(ctx);
+    pageProps = await Component.getInitialProps(ctx, client, data.currentUser);
   }
 
   pageProps = { ...pageProps, ...data };
