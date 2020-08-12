@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { OrderStatus } from '@tripb3000/common';
 
 import app from '../../app';
-import { Order } from '../../models';
+import { Order, Payment } from '../../models';
 import stripe from '../../stripe';
 
 it('returns a 404 when purchasing an order that does not exist', async () => {
@@ -72,4 +72,11 @@ it('returns a 201 with valid inputs', async () => {
 
   expect(stripCharge).toBeDefined();
   expect(stripCharge?.currency).toEqual('gbp');
+
+  const payment = await Payment.findOne({
+    orderId: order.id,
+    stripeId: stripCharge?.id,
+  });
+
+  expect(payment).not.toBeNull();
 });

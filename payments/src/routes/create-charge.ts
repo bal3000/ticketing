@@ -9,7 +9,7 @@ import {
   NotAuthorizedError,
 } from '@tripb3000/common';
 
-import { Order } from '../models';
+import { Order, Payment } from '../models';
 import stripe from '../stripe';
 
 const router = express.Router();
@@ -38,11 +38,16 @@ router.post(
     }
 
     try {
-      await stripe.charges.create({
+      const { id: stripeId } = await stripe.charges.create({
         amount: order.price * 100,
         currency: 'GBP',
         source: token,
       });
+      const payment = Payment.build({
+        orderId,
+        stripeId,
+      });
+      await payment.save();
     } catch (err) {
       throw new Error('Payment failed');
     }
