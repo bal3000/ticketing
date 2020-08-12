@@ -24,3 +24,4 @@ export * from './event-bus/types/order-status';
 export * from './event-bus/events/order-cancelled-event.interface';
 export * from './event-bus/events/order-created-event.interface';
 export * from './event-bus/events/expiration-complete-event.interface';
+export * from './event-bus/events/payment-created-event.interface';
