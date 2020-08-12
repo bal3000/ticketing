@@ -9,7 +9,9 @@ function AppComponent({ Component, pageProps }) {
   return (
     <div>
       <Header currentUser={pageProps.currentUser} />
-      <Component {...pageProps} />
+      <div className="container">
+        <Component {...pageProps} />
+      </div>
     </div>
   );
 }
