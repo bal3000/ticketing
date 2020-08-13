@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 function LandingPage({ currentUser, tickets }) {
   const ticketList = () => {
@@ -6,6 +7,11 @@ function LandingPage({ currentUser, tickets }) {
       <tr key={ticket.id}>
         <td>{ticket.title}</td>
         <td>{ticket.price}</td>
+        <td>
+          <Link href="/tickets/[ticketId]" as={`/tickets/${ticket.id}`}>
+            <a className="">View</a>
+          </Link>
+        </td>
       </tr>
     ));
   };
@@ -18,6 +24,7 @@ function LandingPage({ currentUser, tickets }) {
           <tr>
             <th>Title</th>
             <th>Price</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>{ticketList()}</tbody>
@@ -27,7 +34,13 @@ function LandingPage({ currentUser, tickets }) {
 }
 
 LandingPage.getInitialProps = async (context, client, currentUser) => {
-  const { data: tickets } = await client.get('/api/tickets');
+  let tickets = [];
+  try {
+    const { data } = await client.get('/api/tickets');
+    tickets = data;
+  } catch (err) {
+    console.error(err.response.data);
+  }
   return { tickets };
 };
 
