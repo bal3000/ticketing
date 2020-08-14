@@ -6,6 +6,8 @@ import { TicketUpdatedListener } from '../ticket-updated-listener';
 import { Ticket } from '../../../models/ticket';
 import { natsWrapper } from '../../../nats-wrapper';
 
+jest.setTimeout(30000);
+
 const setup = async () => {
   // create an instance of the listener
   const listener = new TicketUpdatedListener(natsWrapper.client);
