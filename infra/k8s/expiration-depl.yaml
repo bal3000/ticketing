@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: expiration
-          # image: balbains2/expiration
-          image: us.gcr.io/ticketing-dev-282207/expiration
+          image: balbains2/expiration
+          # image: us.gcr.io/ticketing-dev-282207/expiration
           env:
             - name: NATS_URI
               value: 'http://nats-srv:4222'

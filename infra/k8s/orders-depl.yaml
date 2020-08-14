@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: orders
-          # image: balbains2/orders
-          image: us.gcr.io/ticketing-dev-282207/orders
+          image: balbains2/orders
+          # image: us.gcr.io/ticketing-dev-282207/orders
           env:
             - name: EXPIRATION_WINDOW_MINUTES
               value: '15'

@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: client
-          # image: balbains2/client
-          image: us.gcr.io/ticketing-dev-282207/client
+          image: balbains2/client
+          # image: us.gcr.io/ticketing-dev-282207/client
 ---
 apiVersion: v1
 kind: Service
