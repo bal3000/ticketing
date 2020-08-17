@@ -13,6 +13,7 @@ declare global {
 let mongo: any;
 
 jest.mock('../nats-wrapper');
+jest.setTimeout(30000);
 
 process.env.STRIPE_KEY =
   'sk_test_51HEsXDH5CPmGUOobw9OtcHBEW4VCYq0sHAhPAAnp2nN0H6HZzxKrkR9KuLiy1RMl89p31pCSWgOwdlgooeAuw3KF00v1LROBjJ';
