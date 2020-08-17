@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import app from '../../app';
 import { Ticket } from '../../models';
 
+jest.setTimeout(30000);
+
 const buildTicket = async () => {
   const ticket = Ticket.build({
     title: 'concert',
