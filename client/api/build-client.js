@@ -5,7 +5,7 @@ const buildClient = ({ req }) => {
   let headers = null;
   if (typeof window === 'undefined') {
     // we are on the server
-    baseURL = 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local';
+    baseURL = 'http://ticketing.balbains.co.uk/';
     headers = req.headers;
   }
 
