@@ -6,6 +6,8 @@ import { OrderCreatedListener } from '../order-created-listener';
 import { natsWrapper } from '../../../nats-wrapper';
 import { Order } from '../../../models';
 
+jest.setTimeout(30000);
+
 const setup = async () => {
   // create an instance of the listener
   const listener = new OrderCreatedListener(natsWrapper.client);

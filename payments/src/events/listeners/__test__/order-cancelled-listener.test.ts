@@ -6,6 +6,8 @@ import { OrderCancelledListener } from '../order-cancelled-listener';
 import { natsWrapper } from '../../../nats-wrapper';
 import { Order } from '../../../models';
 
+jest.setTimeout(30000);
+
 const setup = async () => {
   // create an instance of the listener
   const listener = new OrderCancelledListener(natsWrapper.client);
