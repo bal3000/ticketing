@@ -14,6 +14,7 @@ declare global {
 
 let mongo: any;
 
+jest.setTimeout(30000);
 jest.mock('../nats-wrapper');
 
 beforeAll(async () => {
